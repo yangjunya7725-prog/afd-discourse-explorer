@@ -1,5 +1,5 @@
 async function loadCorpus(){
-  const b64=(await Promise.all(Array.from({length:12},(_,i)=>fetch('data/corpus.part'+String(i).padStart(2,'0')).then(r=>r.text())))).join('');
+  const b64=(await Promise.all(Array.from({length:31},(_,i)=>fetch('data/corpus.part'+String(i).padStart(2,'0')).then(r=>r.text())))).join('');
   const bin=Uint8Array.from(atob(b64.trim()),c=>c.charCodeAt(0));
   const stream=new Blob([bin]).stream().pipeThrough(new DecompressionStream('gzip'));
   return JSON.parse(await new Response(stream).text());
